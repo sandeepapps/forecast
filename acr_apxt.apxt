@@ -1,0 +1,53 @@
+/**
+* Trigger for Case object
+*
+* @Author Sandeep
+* @Date May 15,2022
+*/
+trigger ContactTriggerWithHandler on Contact (after insert) {
+    
+    //TriggerHandlerManager.createAndExecuteHandler(ContactTriggerHandler.class);
+     //add the contact's account Ids to the accId set
+    Set<Id> accId = new Set<Id>();
+    for(Contact con : Trigger.new) {
+        if(con.AccountId != Null) {
+            accId.add(con.AccountId);
+        }
+    }
+
+    //find any existing AccountContactRoles for the accounts and put them into a map
+    Map<Id, AccountContactRole> accountContactRoleAccountMap = new Map<Id, AccountContactRole>();
+    for(AccountContactRole acr :[SELECT Id,AccountId,ContactId,IsPrimary 
+                                 FROM AccountContactRole 
+                                 WHERE AccountId IN :accId 
+                                 AND IsPrimary = true]){
+        accountContactRoleAccountMap.put(acr.AccountId, acr);
+    }
+        
+    //new AccountContactRoles to be inserted
+    List<AccountContactRole> acr = new List<AccountContactRole>();
+
+    //loop over the Contacts in the trigger, 
+    //if there are no existing AccountContactRole records for the Contact's Account then create one 
+    for(Contact cont: Trigger.new) {
+
+        //if there is no existing AccountContactRole record for this contact's Account, create one
+        if(!accountContactRoleAccountMap.containsKey(cont.AccountId) && Trigger.isAfter){
+            AccountcontactRole c = new AccountcontactRole();
+            c.contactId = cont.Id;
+            c.Role = 'Billing';
+            c.AccountId = cont.AccountId;        
+            c.Isprimary = true;
+            acr.add(c);
+
+            //add this new AccountcontactRole to the map to avoid creating 
+            //duplicates if this contact is in the trigger more than once
+            accountContactRoleAccountMap.put(c.AccountId, c);
+        }
+    }
+
+    //if there are any new AccountContactRoles insert them
+    if(!acr.isEmpty()){
+        insert acr;
+    }
+}
