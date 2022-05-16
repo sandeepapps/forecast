@@ -1,0 +1,247 @@
+<template>
+    <lightning-layout horizontal-align="left" vertical-align="end">
+    <lightning-combobox
+    name="progress"
+    value=""
+    placeholder="View"
+    options={options}
+    onchange={handleChange}
+></lightning-combobox>
+</lightning-layout><br/>
+    <div class="table-scroll">
+        <table class="slds-table slds-table_bordered slds-table--header-fixed">
+            <thead>
+                <tr>
+                   <template if:true={headerData}>
+                    <template for:each={headerData} for:item="item" for:index="index">
+                        <template if:true={item.isDisplayRow}>
+                         <th key={item.column} class={item.classStyle}>
+                            <div class="slds-truncate">{item.column}</div>
+                         </th>
+                         </template>
+                       
+                    </template></template>
+                </tr>
+                
+            </thead>
+            <tbody>
+               
+                <template for:each={displayData.values} for:item="w_record" for:index="index">
+                    <tr key={w_record.Id}>
+                        <td class="fix" data-label="Product" scope="row" key={w_record.Id}>
+                            <div class="slds-truncate" title={w_record.Product}>{w_record.Product}</div>
+                        </td>
+                        <td data-label="Option" title={w_record.Option} scope="col" key={w_record.Id}>
+                            <div class="slds-truncate">
+                                {w_record.Option}
+                            </div>
+                        </td>
+                        <td data-label="Attribute" title={w_record.Attribute} key={w_record.Id}>
+                            <div class="slds-truncate">
+                                {w_record.Attribute}
+                            </div>
+                        </td>
+                        <td data-label="Revenue_Type" title={w_record.Revenue_Type} key={w_record.Id}>
+                            <div class="slds-truncate">
+                                {w_record.Revenue_Type}
+                            </div>
+                        </td>
+                        <td data-label="QTY" title={w_record.QTY} key={w_record.Id}>
+                            <div class="slds-truncate">
+                                {w_record.QTY}
+                            </div>
+                        </td>
+                        <td data-label="Unit_Price" title={w_record.Unit_Price} key={w_record.Id}>
+                            <div class="slds-truncate">
+                                {w_record.Unit_Price}
+                            </div>
+                        </td>
+                        <td data-label="Start_Month" title={w_record.Start_Month} key={w_record.Id}>
+                            <div class="slds-truncate">
+                                {w_record.Start_Month}
+                            </div>
+                        </td>
+                        <td data-label="Months" title={w_record.Months} key={w_record.Id}>
+                            <div class="slds-truncate">
+                                {w_record.Months}
+                            </div>
+                        </td>
+                        <td data-label="Revenue_Recognition" title={w_record.Revenue_Recognition} key={w_record.Id}>
+                            <div class="slds-truncate">
+                                {w_record.Revenue_Recognition}
+                            </div>
+                        </td>
+                        <td data-label="Commited" title={w_record.Commited} key={w_record.Id}>
+                            <div class="slds-truncate">
+                                {w_record.Commited}
+                            </div>
+                        </td>
+                        <template if:true={isMonths}>
+                        <td data-label="amount_2019" title={w_record.amount_2019} key={w_record.Id}>
+                            <div class="slds-truncate">
+                                {w_record.amount_2019}
+                            </div>
+                        </td>
+                        <td data-label="amount_2020" title={w_record.amount_2020} key={w_record.Id}>
+                            <div class="slds-truncate">
+                                {w_record.amount_2020}
+                            </div>
+                        </td>
+                        <td data-label="amount_2021" title={w_record.amount_2021} key={w_record.Id}>
+                            <div class="slds-truncate">
+                                {w_record.amount_2021}
+                            </div>
+                            
+                        </td>
+                    </template>
+                    <template if:true={isFull}>
+                        <td data-label="line_1" title={w_record.line_1} key={w_record.Id}>
+                            <div class="slds-truncate">
+                                {w_record.line_1}
+                            </div>
+                        </td>
+                        <td data-label="line_2" title={w_record.line_2} key={w_record.Id}>
+                            <div class="slds-truncate">
+                                {w_record.line_2}
+                            </div>
+                            <template if:false={w_record.line_2}>0</template>
+                        </td>
+                        <td data-label="line_3" title={w_record.line_3} key={w_record.Id}>
+                            <div class="slds-truncate">
+                                {w_record.line_3}
+                            </div>
+                            <template if:false={w_record.line_3}>0</template>
+                        </td>
+                        <td data-label="line_4" title={w_record.line_4} key={w_record.Id}>
+                            <div class="slds-truncate">
+                                {w_record.line_4}
+                            </div>
+                            <template if:false={w_record.line_4}>0</template>
+                        </td>
+                        <td data-label="line_5" title={w_record.line_5} key={w_record.Id}>
+                            <div class="slds-truncate">
+                                {w_record.line_5}
+                            </div>
+                            <template if:false={w_record.line_5}>0</template>
+                        </td>
+                        <td data-label="line_6" title={w_record.line_6} key={w_record.Id}>
+                            <div class="slds-truncate">
+                                {w_record.line_6}
+                            </div>
+                            <template if:false={w_record.line_6}>0</template>
+                        </td>
+                        <td data-label="line_7" title={w_record.line_7} key={w_record.Id}>
+                            <div class="slds-truncate">
+                                {w_record.line_7}
+                            </div>
+                            <template if:false={w_record.line_7}>0</template>
+                        </td>
+                        <td data-label="line_8" title={w_record.line_8} key={w_record.Id}>
+                            <div class="slds-truncate">
+                                {w_record.line_8}
+                            </div>
+                            <template if:false={w_record.line_8}>0</template>
+                        </td>
+                        <td data-label="line_9 " title={w_record.line_9} key={w_record.Id}>
+                            <div class="slds-truncate">
+                                {w_record.line_9}
+                            </div>
+                            <template if:false={w_record.line_9}>0</template>
+                        </td>
+                        <td data-label="line_10" title={w_record.line_10} key={w_record.Id}>
+                            <div class="slds-truncate">
+                                {w_record.line_10}
+                            </div>
+                            <template if:false={w_record.line_10}>0</template>
+                        </td>
+                        
+                        <td data-label="line_11" title={w_record.line_11} key={w_record.Id}>
+                            <div class="slds-truncate">
+                                {w_record.line_11}
+                            </div>
+                            <template if:false={w_record.line_11}>0</template>
+                        </td>
+                        
+                        <td data-label="line_12" title={w_record.line_12} key={w_record.Id}>
+                            <div class="slds-truncate">
+                                {w_record.line_12}
+                            </div>
+                            <template if:false={w_record.line_12}>0</template>
+                        </td>
+                        
+                        <td data-label="line_13" title={w_record.line_13} key={w_record.Id}>
+                            <div class="slds-truncate">
+                                {w_record.line_13}
+                            </div>
+                            <template if:false={w_record.line_13}>0</template>
+                        </td>
+                        
+                        <td data-label="line_14" title={w_record.line_14} key={w_record.Id}>
+                            <div class="slds-truncate">
+                                {w_record.line_14}
+                            </div>
+                            <template if:false={w_record.line_14}>0</template>
+                        </td>
+                        
+                        <td data-label="line_15" title={w_record.line_15} key={w_record.Id}>
+                            <div class="slds-truncate">
+                                {w_record.line_15}
+                            </div>
+                            <template if:false={w_record.line_15}>0</template>
+                        </td>
+                        
+                        <td data-label="line_16" title={w_record.line_16} key={w_record.Id}>
+                            <div class="slds-truncate">
+                                {w_record.line_16}
+                            </div>
+                            <template if:false={w_record.line_16}>0</template>
+                        </td>
+                        
+                        <td data-label="line_17" title={w_record.line_17} key={w_record.Id}>
+                            <div class="slds-truncate">
+                                {w_record.line_17}
+                            </div>
+                            <template if:false={w_record.line_17}>0</template>
+                        </td>
+                        
+                        <td data-label="line_18" title={w_record.line_18} key={w_record.Id}>
+                            <div class="slds-truncate">
+                                {w_record.line_18}
+                            </div>
+                            <template if:false={w_record.line_18}>0</template>
+                        </td>
+                        
+                        <td data-label="line_19" title={w_record.line_19} key={w_record.Id}>
+                            <div class="slds-truncate">
+                                {w_record.line_19}
+                            </div>
+                            <template if:false={w_record.line_19}>0</template>
+                        </td>
+                        <td data-label="line_20" title={w_record.line_20} key={w_record.Id}>
+                            <div class="slds-truncate">
+                                {w_record.line_20}
+                            </div>
+                            <template if:false={w_record.line_20}>0</template>
+                        </td>
+                        <td data-label="line_21" title={w_record.line_21} key={w_record.Id}>
+                            <div class="slds-truncate">
+                                {w_record.line_21}
+                            </div>
+                            <template if:false={w_record.line_21}>0</template>
+                        </td>
+                        <td data-label="line_22" title={w_record.line_22} key={w_record.Id}>
+                            <div class="slds-truncate">
+                                {w_record.line_22}
+                            </div>
+                            <template if:false={w_record.line_22}>0</template>
+                        </td>
+                       
+                    </template>
+                    </tr>
+                   
+                </template>
+              
+            </tbody>
+        </table>
+    </div>
+</template>
